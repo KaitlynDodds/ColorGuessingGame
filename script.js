@@ -9,7 +9,7 @@ var colors = [
     "rgb(200, 10, 90)",
     "rgb(0, 20, 90)"
 ];
-var pickedColor = colors[3];
+var pickedColor = selectRandomColor();
 colorDisplay.textContent = pickedColor;
 
 for (var i = 0; i < squares.length; i++) {
@@ -31,6 +31,10 @@ for (var i = 0; i < squares.length; i++) {
     });
 }
 
+function selectRandomColor() {
+    var r = Math.floor(Math.random() * (colors.length - 0)) + 0;
+    return colors[r];
+}
 
 function changeColors(color) {
     // loop through all squares
