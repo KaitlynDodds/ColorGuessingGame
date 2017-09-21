@@ -26,21 +26,29 @@ for (var i = 0; i < squares.length; i++) {
 }
 
 function randomColors() {
+    // 0, 255 to get full color spectrum 
     var min = 0;
     var max = 256;
+    // colors array
     var colors = new Array(6);
+    // rgb values
     var r, g, b;
     for (var i = 0; i < colors.length; i++) {
+        // random numbers for rgb values
         r = Math.floor(Math.random() * (max - min)) + min;
         g = Math.floor(Math.random() * (max - min)) + min;
         b = Math.floor(Math.random() * (max - min)) + min;
+        // assign to colors array
         colors[i] = `rgb(${r}, ${g}, ${b})`;
     }
+    // return colors array
     return colors;
 }
 
 function selectRandomColor() {
+    // select random number
     var r = Math.floor(Math.random() * (colors.length - 0)) + 0;
+    // return color in colors array at random number
     return colors[r];
 }
 
