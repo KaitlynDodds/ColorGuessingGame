@@ -1,14 +1,8 @@
 var squares = document.getElementsByClassName("square");
 var colorDisplay = document.getElementById("colorDisplay");
 var messageDisplay = document.getElementById("message");
-var colors = [
-    "rgb(200, 210, 90)",
-    "rgb(20, 230, 190)",
-    "rgb(230, 30, 90)",
-    "rgb(200, 210, 0)",
-    "rgb(200, 10, 90)",
-    "rgb(0, 20, 90)"
-];
+
+var colors = randomColors();
 var pickedColor = selectRandomColor();
 colorDisplay.textContent = pickedColor;
 
@@ -29,6 +23,20 @@ for (var i = 0; i < squares.length; i++) {
             messageDisplay.textContent = "Try Again";
         }
     });
+}
+
+function randomColors() {
+    var min = 0;
+    var max = 256;
+    var colors = new Array(6);
+    var r, g, b;
+    for (var i = 0; i < colors.length; i++) {
+        r = Math.floor(Math.random() * (max - min)) + min;
+        g = Math.floor(Math.random() * (max - min)) + min;
+        b = Math.floor(Math.random() * (max - min)) + min;
+        colors[i] = `rgb(${r}, ${g}, ${b})`;
+    }
+    return colors;
 }
 
 function selectRandomColor() {
