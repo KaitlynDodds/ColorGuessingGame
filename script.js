@@ -2,7 +2,7 @@ var squares = document.getElementsByClassName("square");
 var colorDisplay = document.getElementById("colorDisplay");
 var messageDisplay = document.getElementById("message");
 
-var colors = randomColors();
+var colors = generateRandomColors(6);
 var pickedColor = selectRandomColor();
 colorDisplay.textContent = pickedColor;
 
@@ -25,29 +25,32 @@ for (var i = 0; i < squares.length; i++) {
     });
 }
 
-function randomColors() {
-    // 0, 255 to get full color spectrum 
-    var min = 0;
-    var max = 256;
-    // colors array
-    var colors = new Array(6);
-    // rgb values
-    var r, g, b;
-    for (var i = 0; i < colors.length; i++) {
-        // random numbers for rgb values
-        r = Math.floor(Math.random() * (max - min)) + min;
-        g = Math.floor(Math.random() * (max - min)) + min;
-        b = Math.floor(Math.random() * (max - min)) + min;
-        // assign to colors array
-        colors[i] = `rgb(${r}, ${g}, ${b})`;
+function generateRandomColors(numColors) {
+    // random colors array
+    var randomColors = new Array(numColors);
+    for (var i = 0; i < numColors; i++) {
+        // assign random color to array
+        randomColors[i] = randomColor();
     }
     // return colors array
     return colors;
 }
 
+function randomColor() {
+    // rgb values
+    var r, g, b;
+    // red
+    r = Math.floor(Math.random() * 256;
+    // green
+    g = Math.floor(Math.random() * 256;
+    // blue
+    b = Math.floor(Math.random() * 256;
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
 function selectRandomColor() {
     // select random number
-    var r = Math.floor(Math.random() * (colors.length - 0)) + 0;
+    var r = Math.floor(Math.random() * colors.length);
     // return color in colors array at random number
     return colors[r];
 }
