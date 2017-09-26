@@ -1,29 +1,57 @@
+// ui variables
 var heading = document.querySelector("h1");
 var squares = document.getElementsByClassName("square");
 var colorDisplay = document.getElementById("colorDisplay");
 var messageDisplay = document.getElementById("message");
+var resetBtn = document.getElementById("reset");
+// variable setup
+var colors, pickedColor
 
-var colors = generateRandomColors(6);
-var pickedColor = selectRandomColor();
-colorDisplay.textContent = pickedColor;
+// start game
+setupGame();
 
-for (var i = 0; i < squares.length; i++) {
-    // give color to squares
-    squares[i].style.backgroundColor = colors[i];
-    // add event listeners to squares
-    squares[i].addEventListener("click", function() {
-        // get color of clicked square
-        var color = this.style.backgroundColor;
-        // compare color to pickedColor
-        if (color === pickedColor) {
-            messageDisplay.textContent = "Correct";
-            changeColors(pickedColor);
-        } else {
-            // fade wrong choice into background
-            this.style.backgroundColor = "#232323";
-            messageDisplay.textContent = "Try Again";
-        }
-    });
+// add event listener to reset btn 
+resetBtn.addEventListener("click", function() {
+    setupGame();
+})
+
+function setupGame() {
+    // generate all new colors
+    colors = generateRandomColors(6);
+    // pick new random color
+    pickedColor = selectRandomColor();
+    // change display color
+    colorDisplay.textContent = pickedColor;
+    // change reset btn text
+    resetBtn.textContent = "New Colors";
+
+    // change color of squares
+    setupSquares();
+}
+
+function setupSquares() {
+    for (var i = 0; i < squares.length; i++) {
+        // give color to squares
+        squares[i].style.backgroundColor = colors[i];
+        // add event listeners to squares
+        squares[i].addEventListener("click", function() {
+            // get color of clicked square
+            var color = this.style.backgroundColor;
+            // compare color to pickedColor
+            if (color === pickedColor) {
+                // change message display
+                messageDisplay.textContent = "Correct";
+                // update reset btn text
+                resetBtn.textContent = "Play Again?";
+                // change all square colors
+                changeColors(pickedColor);
+            } else {
+                // fade wrong choice into background
+                this.style.backgroundColor = "#232323";
+                messageDisplay.textContent = "Try Again";
+            }
+        });
+    }
 }
 
 function generateRandomColors(numColors) {
