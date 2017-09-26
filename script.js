@@ -4,20 +4,47 @@ var squares = document.getElementsByClassName("square");
 var colorDisplay = document.getElementById("colorDisplay");
 var messageDisplay = document.getElementById("message");
 var resetBtn = document.getElementById("reset");
+var easyBtn = document.getElementById("easy");
+var hardBtn = document.getElementById("hard");
 // variable setup
-var colors, pickedColor
+var colors, pickedColor;
+var isHard = true;
+var hard = 6;
+var easy = 3;
 
 // start game
-setupGame();
+setupGame(hard);
 
 // add event listener to reset btn
 resetBtn.addEventListener("click", function() {
-    setupGame();
-})
+    if (isHard) {
+        setupGame(hard);
+    } else {
+        setupGame(easy);
+    }
+});
 
-function setupGame() {
+// add event listener to easy btn
+easyBtn.addEventListener("click", function() {
+    isHard = !isHard;
+    easyBtn.classList.add("selected");
+    hardBtn.classList.remove("selected");
+
+    setupGame(easy);
+});
+
+// add event listener to hard btn
+hardBtn.addEventListener("click", function() {
+    isHard = !isHard;
+    hardBtn.classList.add("selected");
+    easyBtn.classList.remove("selected");
+
+    setupGame(hard);
+});
+
+function setupGame(numSquares) {
     // generate all new colors
-    colors = generateRandomColors(6);
+    colors = generateRandomColors(numSquares);
     // pick new random color
     pickedColor = selectRandomColor();
     // change display color
@@ -28,15 +55,21 @@ function setupGame() {
     heading.style.background = "#232323";
 
     // change color of squares
-    setupSquares();
+    setupSquares(numSquares);
 }
 
-function setupSquares() {
+function setupSquares(numSquares) {
     for (var i = 0; i < squares.length; i++) {
-        // give color to squares
-        squares[i].style.backgroundColor = colors[i];
-        // add event listeners to squares
-        squares[i].addEventListener("click", checkSquare);
+        if (i < numSquares) {
+            // make sure square is visible
+            squares[i].style.display = "block";
+            // give color to squares
+            squares[i].style.backgroundColor = colors[i];
+            // add event listeners to squares
+            squares[i].addEventListener("click", checkSquare);
+        } else {
+            squares[i].style.display = "none";
+        }
     }
 }
 
