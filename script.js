@@ -10,7 +10,7 @@ var colors, pickedColor
 // start game
 setupGame();
 
-// add event listener to reset btn 
+// add event listener to reset btn
 resetBtn.addEventListener("click", function() {
     setupGame();
 })
@@ -34,23 +34,25 @@ function setupSquares() {
         // give color to squares
         squares[i].style.backgroundColor = colors[i];
         // add event listeners to squares
-        squares[i].addEventListener("click", function() {
-            // get color of clicked square
-            var color = this.style.backgroundColor;
-            // compare color to pickedColor
-            if (color === pickedColor) {
-                // change message display
-                messageDisplay.textContent = "Correct";
-                // update reset btn text
-                resetBtn.textContent = "Play Again?";
-                // change all square colors
-                changeColors(pickedColor);
-            } else {
-                // fade wrong choice into background
-                this.style.backgroundColor = "#232323";
-                messageDisplay.textContent = "Try Again";
-            }
-        });
+        squares[i].addEventListener("click", checkSquare);
+    }
+}
+
+function checkSquare() {
+    // get color of clicked square
+    var color = this.style.backgroundColor;
+    // compare color to pickedColor
+    if (color === pickedColor) {
+        // change message display
+        messageDisplay.textContent = "Correct";
+        // update reset btn text
+        resetBtn.textContent = "Play Again?";
+        // change all square colors
+        changeColors(pickedColor);
+    } else {
+        // fade wrong choice into background
+        this.style.backgroundColor = "#232323";
+        messageDisplay.textContent = "Try Again";
     }
 }
 
