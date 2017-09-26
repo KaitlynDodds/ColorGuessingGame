@@ -24,6 +24,8 @@ function setupGame() {
     colorDisplay.textContent = pickedColor;
     // change reset btn text
     resetBtn.textContent = "New Colors";
+    // change heading background color
+    heading.style.background = "#232323";
 
     // change color of squares
     setupSquares();
