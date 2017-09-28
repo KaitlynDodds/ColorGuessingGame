@@ -52,7 +52,7 @@ function setupGame(numSquares) {
     // change reset btn text
     resetBtn.textContent = "New Colors";
     // change heading background color
-    heading.style.background = "#232323";
+    heading.style.background = "steelblue";
 
     // change color of squares
     setupSquares(numSquares);
