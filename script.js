@@ -49,12 +49,13 @@ function setupGame(numSquares) {
     pickedColor = selectRandomColor();
     // change display color
     colorDisplay.textContent = pickedColor;
+    // change message text
+    messageDisplay.textContent = "";
     // change reset btn text
     resetBtn.textContent = "New Colors";
     // change heading background color
     heading.style.background = "steelblue";
-
-    // change color of squares
+     // change color of squares
     setupSquares(numSquares);
 }
 
