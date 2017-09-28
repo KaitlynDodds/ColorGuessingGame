@@ -4,19 +4,25 @@ var squares = document.getElementsByClassName("square");
 var colorDisplay = document.getElementById("colorDisplay");
 var messageDisplay = document.getElementById("message");
 var resetBtn = document.getElementById("reset");
-var easyBtn = document.getElementById("easy");
-var hardBtn = document.getElementById("hard");
+var modeBtns = document.getElementsByClassName("mode");
 
 // variable setup
-var colors, pickedColor;
-// default game settings
-var isHard = true;
-var hardSquares = 6;
-var easySquares = 3;
+var colors, pickedColor, isHard, hardSquares, easySquares;
 
-// start game
-setupGame(hardSquares);
+function init() {
+    // setup mode btn event listeners
+    for (var i = 0; i < modeBtns.length; i++) {
+        modeBtns[i].addEventListener("click", modeBtnEventListener);
+    }
 
+    // default game settings
+    isHard = true;
+    easySquares = 3;
+    hardSquares = 6;
+
+    // start game
+    setupGame(hardSquares);
+}
 
 
 /** Event Listeners **/
@@ -30,29 +36,23 @@ resetBtn.addEventListener("click", function() {
     }
 });
 
-// add event listener to easy btn
-easyBtn.addEventListener("click", function() {
-    isHard = !isHard;
-    // toggle selected btn
-    easyBtn.classList.add("selected");
-    hardBtn.classList.remove("selected");
-    // launch game setup
-    setupGame(easySquares);
-});
-
-// add event listener to hard btn
-hardBtn.addEventListener("click", function() {
-    isHard = !isHard;
-    // toggle selected btn
-    easyBtn.classList.remove("selected");
-    hardBtn.classList.add("selected");
-    // launch game setup
-    setupGame(hardSquares);
-});
-
 
 
 /** Game Functions **/
+
+function modeBtnEventListener() {
+    // remove from both btns to be safe
+    modeBtns[0].classList.toggle("selected");
+    modeBtns[1].classList.toggle("selected");
+    // add to btn that was just clicked
+    this.classList.add("selected");
+    // keep track of isHard status
+    isHard = !isHard;
+    // how many squares to show
+    var numSquares = this.textContent === "Easy" ? 3 : 6;
+    // launch game setup
+    setupGame(numSquares);
+}
 
 function setupGame(numSquares) {
     // generate all new colors
