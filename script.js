@@ -6,41 +6,53 @@ var messageDisplay = document.getElementById("message");
 var resetBtn = document.getElementById("reset");
 var easyBtn = document.getElementById("easy");
 var hardBtn = document.getElementById("hard");
+
 // variable setup
 var colors, pickedColor;
+// default game settings
 var isHard = true;
-var hard = 6;
-var easy = 3;
+var hardSquares = 6;
+var easySquares = 3;
 
 // start game
-setupGame(hard);
+setupGame(hardSquares);
+
+
+
+/** Event Listeners **/
 
 // add event listener to reset btn
 resetBtn.addEventListener("click", function() {
     if (isHard) {
-        setupGame(hard);
+        setupGame(hardSquares);
     } else {
-        setupGame(easy);
+        setupGame(easySquares);
     }
 });
 
 // add event listener to easy btn
 easyBtn.addEventListener("click", function() {
     isHard = !isHard;
+    // toggle selected btn
     easyBtn.classList.add("selected");
     hardBtn.classList.remove("selected");
-
-    setupGame(easy);
+    // launch game setup
+    setupGame(easySquares);
 });
 
 // add event listener to hard btn
 hardBtn.addEventListener("click", function() {
     isHard = !isHard;
-    hardBtn.classList.add("selected");
+    // toggle selected btn
     easyBtn.classList.remove("selected");
-
-    setupGame(hard);
+    hardBtn.classList.add("selected");
+    // launch game setup
+    setupGame(hardSquares);
 });
+
+
+
+/** Game Functions **/
 
 function setupGame(numSquares) {
     // generate all new colors
@@ -57,6 +69,36 @@ function setupGame(numSquares) {
     heading.style.background = "steelblue";
      // change color of squares
     setupSquares(numSquares);
+}
+
+function generateRandomColors(numSquares) {
+    // random colors array
+    var randomColors = new Array(numSquares);
+    for (var i = 0; i < numSquares; i++) {
+        // assign random color to array
+        randomColors[i] = randomColor();
+    }
+    // return colors array
+    return randomColors;
+}
+
+function randomColor() {
+    // rgb values
+    var r, g, b;
+    // red
+    r = Math.floor(Math.random() * 256);
+    // green
+    g = Math.floor(Math.random() * 256);
+    // blue
+    b = Math.floor(Math.random() * 256);
+    return `rgb(${r}, ${g}, ${b})`;
+}
+
+function selectRandomColor() {
+    // select random number from colors array
+    var r = Math.floor(Math.random() * colors.length);
+    // return color in colors array at random number
+    return colors[r];
 }
 
 function setupSquares(numSquares) {
@@ -83,43 +125,14 @@ function checkSquare() {
         messageDisplay.textContent = "Correct";
         // update reset btn text
         resetBtn.textContent = "Play Again?";
-        // change all square colors
+        // change all colors
         changeColors(pickedColor);
     } else {
         // fade wrong choice into background
         this.style.backgroundColor = "#232323";
+        // inform user
         messageDisplay.textContent = "Try Again";
     }
-}
-
-function generateRandomColors(numColors) {
-    // random colors array
-    var randomColors = new Array(numColors);
-    for (var i = 0; i < numColors; i++) {
-        // assign random color to array
-        randomColors[i] = randomColor();
-    }
-    // return colors array
-    return randomColors;
-}
-
-function randomColor() {
-    // rgb values
-    var r, g, b;
-    // red
-    r = Math.floor(Math.random() * 256);
-    // green
-    g = Math.floor(Math.random() * 256);
-    // blue
-    b = Math.floor(Math.random() * 256);
-    return `rgb(${r}, ${g}, ${b})`;
-}
-
-function selectRandomColor() {
-    // select random number
-    var r = Math.floor(Math.random() * colors.length);
-    // return color in colors array at random number
-    return colors[r];
 }
 
 function changeColors(color) {
